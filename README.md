@@ -1,5 +1,6 @@
 # 15puzzle
-15 Puzzle is a game to sort and solve the grid
+15 Puzzle is a game to sort and solve the grid<br>
+https://sadanandpai.github.io/15puzzle/index.html
 
 ## Technology
 HTML5, CSS, JavaScript, React
