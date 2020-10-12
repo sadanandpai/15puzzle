@@ -15,4 +15,4 @@ Parcel
 5. Run 'parcel ./index.html'
 
 #### To build for prod
-1. Run 'parcel build ./indexhtml'
+1. Run 'parcel build ./index.html'
