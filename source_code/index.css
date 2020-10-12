@@ -1,0 +1,122 @@
+html {
+  font-family: Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  margin: auto;
+  width: 90%;
+}
+
+#root {
+  display: flex;
+  justify-content: center;
+}
+
+h1,
+h2,
+h3,
+.instruction {
+  text-align: center;
+}
+
+h1 {
+  margin: 10px 0 5px 0;
+}
+
+.instruction {
+  margin: 10px;
+}
+
+.grid {
+  display: grid;
+  position: relative;
+  width: 100%;
+  grid-template-rows: repeat(4, 100px);
+  grid-template-columns: repeat(4, 100px);
+  justify-content: center;
+}
+
+@media (max-width: 400px) {
+  .grid {
+    display: grid;
+    grid-template-rows: repeat(4, 24vw);
+    grid-template-columns: repeat(4, 24vw);
+  }
+}
+
+.grid div:not(.empty) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgb(182, 182, 182);
+  margin: 1px;
+  box-shadow: 1px 1px 4px 1px #9fd69f;
+  cursor: pointer;
+  background-color: rgb(243, 247, 250);
+}
+
+.grid div.move-left {
+  animation: move-left linear 0.3s forwards;
+}
+
+@keyframes move-left {
+  to {
+    transform: translateX(-100%) rotate(-90deg);
+  }
+}
+
+.grid div.move-right {
+  animation: move-right linear 0.3s forwards;
+}
+
+@keyframes move-right {
+  to {
+    transform: translateX(100%) rotate(90deg);
+  }
+}
+
+.grid div.move-up {
+  animation: move-up linear 0.3s forwards;
+}
+
+@keyframes move-up {
+  to {
+    transform: translateY(-100%) rotateX(-180deg);
+  }
+}
+
+.grid div.move-down {
+  animation: move-down linear 0.3s forwards;
+}
+
+@keyframes move-down {
+  to {
+    transform: translateY(100%) rotateX(180deg);
+  }
+}
+
+.menu {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.button {
+  margin: 10px;
+  width: 80px;
+  height: 30px;
+  border-radius: 5px;
+  border: 1px solid blue;
+}
