@@ -51,9 +51,10 @@ export default class App extends React.Component {
   }
 
   onResetClickHandler = () => {
+    const state = this.getInitialRandomState();
     this.setState({
-      grid: this.getInitialRandomState(),
-      positionMatchGrid: this.validatePositionOfGrid(),
+      grid: state,
+      positionMatchGrid: this.validatePositionOfGrid(state),
     });
 
     this.nullIndex = {
@@ -92,14 +93,13 @@ export default class App extends React.Component {
     }
   };
 
-  validatePositionOfGrid = () => {
+  validatePositionOfGrid = (grid = this.state.grid) => {
     const positionMatchGrid = new Array(this.gridSize.row);
     for (let index = 0; index < this.gridSize.col; index++) positionMatchGrid[index] = [];
 
     for (let i = 0; i < this.gridSize.row; i++)
       for (let j = 0; j < this.gridSize.col; j++)
-        if (this.state.grid[i] && this.state.grid[i][j] && this.state.grid[i][j] === i * this.gridSize.row + j + 1)
-          positionMatchGrid[i].push(true);
+        if (grid[i] && grid[i][j] && grid[i][j] === i * this.gridSize.row + j + 1) positionMatchGrid[i].push(true);
         else positionMatchGrid[i].push(false);
 
     return positionMatchGrid;
