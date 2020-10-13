@@ -124,3 +124,7 @@ h1 {
   border-radius: 5px;
   border: 1px solid blue;
 }
+
+.grid div.set {
+  box-shadow: 1px 1px 4px 1px rgb(10, 114, 233);
+}

@@ -3,6 +3,7 @@ import React from "react";
 export default class App extends React.Component {
   state = {
     grid: [],
+    positionMatchGrid: [],
   };
 
   gridSize = {
@@ -52,6 +53,7 @@ export default class App extends React.Component {
   onResetClickHandler = () => {
     this.setState({
       grid: this.getInitialRandomState(),
+      positionMatchGrid: this.validatePositionOfGrid(),
     });
 
     this.nullIndex = {
@@ -80,6 +82,7 @@ export default class App extends React.Component {
 
         this.setState({
           grid: newState,
+          positionMatchGrid: this.validatePositionOfGrid(),
         });
         target.classList.remove("move-" + gridDirection);
 
@@ -87,6 +90,19 @@ export default class App extends React.Component {
         this.undoObject.mutable = true;
       }, 300);
     }
+  };
+
+  validatePositionOfGrid = () => {
+    const positionMatchGrid = new Array(this.gridSize.row);
+    for (let index = 0; index < this.gridSize.col; index++) positionMatchGrid[index] = [];
+
+    for (let i = 0; i < this.gridSize.row; i++)
+      for (let j = 0; j < this.gridSize.col; j++)
+        if (this.state.grid[i] && this.state.grid[i][j] && this.state.grid[i][j] === i * this.gridSize.row + j + 1)
+          positionMatchGrid[i].push(true);
+        else positionMatchGrid[i].push(false);
+
+    return positionMatchGrid;
   };
 
   checkGridSort = () => {
@@ -157,7 +173,16 @@ export default class App extends React.Component {
         <div className="grid" onClick={this.onBoxClickHandler}>
           {this.state.grid.map((row, rowIndex) =>
             row.map((digit, colIndex) => (
-              <div key={digit} data-digit={digit} data-row={rowIndex} data-col={colIndex} className={digit ? "" : "empty"}>
+              <div
+                key={digit}
+                data-digit={digit}
+                data-row={rowIndex}
+                data-col={colIndex}
+                className={
+                  (digit ? "" : "empty") +
+                  (this.state.positionMatchGrid[rowIndex] && this.state.positionMatchGrid[rowIndex][colIndex] ? " set" : "")
+                }
+              >
                 {digit}
               </div>
             ))
@@ -177,8 +202,9 @@ export default class App extends React.Component {
             </button>
           )}
         </div>
-        <h3>Total moves: {this.moveCounter}</h3>
-        {this.isGridSorted ? <h2>hurray. You did it !!!!!!!</h2> : ""}
+        <h3>
+          {this.isGridSorted ? "Congrats." : ""} Total moves: {this.moveCounter}
+        </h3>
       </div>
     );
   }
