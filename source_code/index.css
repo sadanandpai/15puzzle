@@ -70,6 +70,7 @@ h1 {
   box-shadow: 1px 1px 4px 1px #9fd69f;
   cursor: pointer;
   background-color: rgb(243, 247, 250);
+  user-select: none;
 }
 
 .grid div.move-left {

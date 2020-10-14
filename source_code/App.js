@@ -67,11 +67,14 @@ export default class App extends React.Component {
   };
 
   onBoxClickHandler = (event) => {
+    if (this.isMoveInProgress) return;
+
     const target = event.target;
     const digit = +target.dataset.digit;
     const { newState, gridDirection } = this.getStateAndDirectionOnBoxMove(this.state, this.nullIndex.row, this.nullIndex.col, digit);
 
     if (gridDirection) {
+      this.isMoveInProgress = true;
       target.classList.add("move-" + gridDirection);
       this.updateUndoObject(digit);
 
@@ -89,7 +92,10 @@ export default class App extends React.Component {
 
         // Make the undo object mutable as the user click should allow updating the stack
         this.undoObject.mutable = true;
+        this.isMoveInProgress = false;
       }, 300);
+    } else {
+      this.isMoveInProgress = false;
     }
   };
 
